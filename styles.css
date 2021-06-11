@@ -1,0 +1,18 @@
+* {
+  border: 1px solid green;
+}
+
+body {
+  margin: 0;
+  width: 100vh;
+  height: 100vh;
+  display: flex;
+}
+
+body > aside {
+  width: 25%;
+}
+
+body > main {
+  width: 50%;
+}
