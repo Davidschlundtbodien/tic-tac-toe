@@ -37,6 +37,8 @@ class Game {
       console.log(`Loop ${i}`);
       if (a !== '' || b !== '' || c !== '')  {
         if (a === b && b === c) {
+          this.playerTurn.wins ++
+          this.playerTurn.saveWinsToStorage()
           return `${a} is the winner!`
         }
       }
