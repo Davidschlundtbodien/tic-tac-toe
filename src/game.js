@@ -6,6 +6,10 @@ class Game {
     this.gameBoard = ['','','','','','','','','']
   }
 
+  updateBoard(index) {
+    this.gameBoard[index] = this.playerTurn.token
+  }
+
   changePlayerTurn() {
     this.playerTurn = this.playerTurn.id === 1 ? this.player2 : this.player1
   }
