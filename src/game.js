@@ -38,4 +38,12 @@ class Game {
       }
     }
   }
+
+  checkForDraw() {
+    if (!this.gameBoard.includes('')) {
+      return true
+    } else {
+      return false
+    }
+  }
 }
