@@ -3,8 +3,15 @@ var currentGame = new Game()
 // SELECTORS
 var playerOne = document.getElementById('playerOne')
 var playerTwo = document.getElementById('playerTwo')
+var gameMessage = document.getElementById('gameMessage')
+var gameBoard = document.getElementById('gameBoard')
 // EVENT LISTENERS
 window.addEventListener('load', loadPlayers)
+gameBoard.addEventListener('click', function(event) {
+  if (event.target.className === 'cell' && !event.target.innerText) {
+    handleTurn(event.target)
+  }
+});
 
 // EVENT HANDLERS
 function loadPlayers() {
@@ -16,4 +23,32 @@ function loadPlayers() {
   <h1>${currentGame.player2.token}</h1>
   <p>Wins: ${currentGame.player2.wins}</p>
   `
+}
+
+function handleTurn(cell) {
+  placeToken(cell)
+
+  if (checkBoard()) {
+    return
+  }
+
+  switchPlayer()
+}
+
+function checkBoard() {
+  if (currentGame.checkForWin()) {
+    return gameMessage.innerText = `${currentGame.playerTurn.token} has won!`
+  } else if (currentGame.checkForDraw()) {
+    return gameMessage.innerText = "DRAW!"
+  }
+}
+
+function placeToken(cell) {
+  cell.innerText = currentGame.playerTurn.token
+  currentGame.updateBoard(cell.id)
+}
+
+function switchPlayer() {
+  currentGame.changePlayerTurn()
+  gameMessage.innerText = `It's ${currentGame.playerTurn.token} turn!`
 }
