@@ -29,6 +29,7 @@ function handleTurn(cell) {
   placeToken(cell)
 
   if (checkBoard()) {
+    loadPlayers()
     return
   }
 
@@ -51,4 +52,12 @@ function placeToken(cell) {
 function switchPlayer() {
   currentGame.changePlayerTurn()
   gameMessage.innerText = `It's ${currentGame.playerTurn.token} turn!`
+}
+
+function startNewGame() {
+  var cells = document.getElementsByClassName("cell")
+  for (var i = 0; i < cells.length; i++) {
+    cells[i]. innerText = ''
+  }
+  currentGame.resetBoard()
 }
