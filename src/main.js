@@ -6,7 +6,8 @@ var playerTwo = document.getElementById('playerTwo')
 var gameMessage = document.getElementById('gameMessage')
 var gameBoard = document.getElementById('gameBoard')
 // EVENT LISTENERS
-window.addEventListener('load', loadPlayers)
+window.addEventListener('load', loadGame)
+// window.addEventListener('load', loadBoard)
 gameBoard.addEventListener('click', function(event) {
   if (event.target.className === 'cell' && !event.target.innerText) {
     handleTurn(event.target)
@@ -14,6 +15,14 @@ gameBoard.addEventListener('click', function(event) {
 });
 
 // EVENT HANDLERS
+function loadGame() {
+  if (localStorage.getItem(`game`)) {
+    currentGame.retrieveFromStorage()
+  }
+  loadPlayers()
+  loadBoard()
+}
+
 function loadPlayers() {
   playerOne.innerHTML = `
   <h1>${currentGame.player1.token}</h1>
@@ -25,15 +34,25 @@ function loadPlayers() {
   `
 }
 
+function loadBoard() {
+  gameMessage.innerText = `It's ${currentGame.playerTurn.token} turn!`
+  var cells = document.getElementsByClassName("cell")
+  for (var i = 0; i < currentGame.gameBoard.length; i++) {
+    cells[i].innerText = currentGame.gameBoard[i]
+  }
+}
+
 function handleTurn(cell) {
   placeToken(cell)
 
   if (checkBoard()) {
     loadPlayers()
+
     return
   }
 
   switchPlayer()
+  currentGame.saveToStorage()
 }
 
 function checkBoard() {
@@ -52,6 +71,7 @@ function placeToken(cell) {
 function switchPlayer() {
   currentGame.changePlayerTurn()
   gameMessage.innerText = `It's ${currentGame.playerTurn.token} turn!`
+
 }
 
 function startNewGame() {
@@ -60,4 +80,5 @@ function startNewGame() {
     cells[i]. innerText = ''
   }
   currentGame.resetBoard()
+  currentGame.saveToStorage()
 }

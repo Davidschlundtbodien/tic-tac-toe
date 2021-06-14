@@ -1,7 +1,7 @@
 class Game {
   constructor() {
-    this.player1 = new Player({id: 1, token: "🍺"});
-    this.player2 = new Player({id: 2, token: "🍷"});
+    this.player1 = new Player({id: 1, token: '🍺'});
+    this.player2 = new Player({id: 2, token: '🍷'});
     this.playerTurn = this.player1;
     this.gameBoard = ['','','','','','','','','']
   }
@@ -11,6 +11,7 @@ class Game {
   }
 
   resetBoard() {
+    this.playerTurn = this.player1
     this.gameBoard = ['','','','','','','','','']
   }
 
@@ -51,5 +52,20 @@ class Game {
     } else {
       return false
     }
+  }
+
+  saveToStorage() {
+    var payload = JSON.stringify(this)
+    localStorage.setItem(`game`, payload)
+  }
+
+  retrieveFromStorage() {
+    var response = localStorage.getItem(`game`)
+    var game = JSON.parse(response)
+    console.log(game);
+    this.player1 = new Player(game.player1)
+    this.player2 = new Player(game.player2)
+    this.playerTurn = game.playerTurn.id === 1 ? this.player1 : this.player2
+    this.gameBoard = game.gameBoard
   }
 }
