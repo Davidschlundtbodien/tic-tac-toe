@@ -7,14 +7,13 @@
   </head>
   <body>
     <aside class="player-panel">
-      <article class="player-card">
-        <h1>🍺</h1>
-        <p>Wins: 14</p>
+      <article class="player-card" id="playerOne">
+        <!-- Player One Loads Here -->
       </article>
     </aside>
     <main class="game-panel">
-      <p class="game-message">Its 🍺 turn.</p>
-      <article class="game-board">
+      <p class="game-message" id="gameMessage"></p>
+      <article class="game-board" id="gameBoard">
         <section class="cell" id="0"></section>
         <section class="cell" id="1"></section>
         <section class="cell" id="2"></section>
@@ -27,12 +26,12 @@
       </article>
     </main>
     <aside class="player-panel">
-      <article class="player-card">
-        <h1>🍷</h1>
-        <p>Wins: 2</p>
+      <article class="player-card" id="playerTwo">
+        <!-- Player Two Loads Here -->
       </article>
     </aside>
   </body>
   <script src="./src/player.js"></script>
   <script src="./src/game.js"></script>
+  <script src="./src/main.js"></script>
 </html>
