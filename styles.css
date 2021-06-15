@@ -1,7 +1,4 @@
-* {
-  /* border: 1px solid green; */
-}
-
+/* General */
 body {
   margin: 0;
   width: auto;
@@ -9,17 +6,15 @@ body {
   display: flex;
 }
 
-body > aside {
+/* Player Sections */
+.player-panel {
   width: 25%;
   height: 100%;
   background: linear-gradient(18deg, #2e3c49 35%, #4b7a8b 67%, #459aab 100%);
 }
 
-body > main {
-  width: 50%;
-}
-
 .player-card {
+  margin-top: 2em;
   height: 30%;
   font-size: 3em;
   display: flex;
@@ -28,21 +23,24 @@ body > main {
   text-align: center;
 }
 
+/* Game Section */
 .game-panel {
+  width: 50%;
   display: flex;
   flex-direction: column;
 }
 
 .game-message {
+  margin: 2em 0;
+  padding: .8em 0;
   font-size: 3em;
   text-align: center;
-  padding: .8em 0;
 }
 
 .game-board {
   background: radial-gradient(circle, #2e3c49 26%, #4b7a8b 63%, #459aab 100%);
   height: 40%;
-  margin: 2em;
+  margin: 3em 15%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
