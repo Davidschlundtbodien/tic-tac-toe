@@ -2,21 +2,21 @@ class Game {
   constructor() {
     this.player1 = new Player({id: 1, token: '🍺'});
     this.player2 = new Player({id: 2, token: '🍷'});
-    this.playerTurn = this.player1;
+    this.currentPlayer = this.player1;
     this.gameBoard = ['','','','','','','','','']
   }
 
   updateBoard(index) {
-    this.gameBoard[index] = this.playerTurn.token
+    this.gameBoard[index] = this.currentPlayer.token
   }
 
   resetBoard() {
-    this.playerTurn = this.player1
+    this.currentPlayer = this.player1
     this.gameBoard = ['','','','','','','','','']
   }
 
   changePlayerTurn() {
-    this.playerTurn = this.playerTurn.id === 1 ? this.player2 : this.player1
+    this.currentPlayer = this.currentPlayer.id === 1 ? this.player2 : this.player1
   }
 
   checkForWin() {
@@ -37,9 +37,9 @@ class Game {
       var c = this.gameBoard[winCondition[2]];
       if (a !== '' || b !== '' || c !== '')  {
         if (a === b && b === c) {
-          this.playerTurn.retrieveWinsFromStorage()
-          this.playerTurn.wins ++
-          this.playerTurn.saveWinsToStorage()
+          this.currentPlayer.retrieveWinsFromStorage()
+          this.currentPlayer.wins ++
+          this.currentPlayer.saveWinsToStorage()
           return true
         }
       }
@@ -64,7 +64,7 @@ class Game {
     var game = JSON.parse(response)
     this.player1 = new Player(game.player1)
     this.player2 = new Player(game.player2)
-    this.playerTurn = game.playerTurn.id === 1 ? this.player1 : this.player2
+    this.currentPlayer = game.currentPlayer.id === 1 ? this.player1 : this.player2
     this.gameBoard = game.gameBoard
   }
 }
