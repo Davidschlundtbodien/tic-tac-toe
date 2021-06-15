@@ -41,9 +41,9 @@ function handleTurn(cell) {
 //Check for win or draw
 function checkBoard() {
   if (currentGame.checkForWin()) {
-    return gameMessage.innerText = `${currentGame.currentPlayer.token} has won!`
+    return updateGameMessage('Win')
   } else if (currentGame.checkForDraw()) {
-    return gameMessage.innerText = "DRAW!"
+    return updateGameMessage('Draw')
   }
 }
 
@@ -69,8 +69,14 @@ function switchPlayer() {
   updateGameMessage()
 }
 
-function updateGameMessage() {
-  gameMessage.innerText = `It's ${currentGame.currentPlayer.token} turn!`
+function updateGameMessage(condition) {
+  if (condition === 'Win') {
+    return gameMessage.innerText = `${currentGame.currentPlayer.token} has won!`
+  } else if (condition === 'Draw') {
+    return gameMessage.innerText = "DRAW!"
+  } else {
+    gameMessage.innerText = `It's ${currentGame.currentPlayer.token} turn!`
+  }
 }
 
 //Data updates and loading
@@ -86,7 +92,7 @@ function loadPlayers() {
 }
 
 function loadBoard() {
-  gameMessage.innerText = `It's ${currentGame.currentPlayer.token} turn!`
+  updateGameMessage()
   var cells = document.getElementsByClassName("cell")
   for (var i = 0; i < currentGame.gameBoard.length; i++) {
     cells[i].innerText = currentGame.gameBoard[i]
