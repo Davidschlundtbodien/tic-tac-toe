@@ -6,6 +6,7 @@ class Game {
     this.gameBoard = ['','','','','','','','','']
   }
 
+//Game Flow Methods
   updateBoard(index) {
     this.gameBoard[index] = this.currentPlayer.token
   }
@@ -19,6 +20,7 @@ class Game {
     this.currentPlayer = this.currentPlayer.id === 1 ? this.player2 : this.player1
   }
 
+//Win and draw checking methods
   checkForWin() {
     var winConditions = [
       [0, 1, 2],
@@ -31,11 +33,14 @@ class Game {
       [2, 4, 6]
     ]
     for (var i = 0; i < winConditions.length; i++) {
+      //Assigns values of the board according to which indexes are used for the win condition above
       var winCondition = winConditions[i]
       var a = this.gameBoard[winCondition[0]];
       var b = this.gameBoard[winCondition[1]];
       var c = this.gameBoard[winCondition[2]];
+      //Checks for character presence to avoid empty strings triggering a win
       if (a !== '' || b !== '' || c !== '')  {
+        //Checks for same character in all 3 indexes
         if (a === b && b === c) {
           this.currentPlayer.retrieveWinsFromStorage()
           this.currentPlayer.wins ++
@@ -54,6 +59,7 @@ class Game {
     }
   }
 
+//Local Storage Methods
   saveToStorage() {
     var payload = JSON.stringify(this)
     localStorage.setItem(`game`, payload)
