@@ -12,7 +12,7 @@ class Game {
   }
 
   resetBoard() {
-    this.currentPlayer = this.player1
+    this.changePlayerTurn()
     this.gameBoard = ['','','','','','','','','']
   }
 
