@@ -62,7 +62,6 @@ class Game {
   retrieveFromStorage() {
     var response = localStorage.getItem(`game`)
     var game = JSON.parse(response)
-    console.log(game);
     this.player1 = new Player(game.player1)
     this.player2 = new Player(game.player2)
     this.playerTurn = game.playerTurn.id === 1 ? this.player1 : this.player2

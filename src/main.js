@@ -7,7 +7,6 @@ var gameMessage = document.getElementById('gameMessage')
 var gameBoard = document.getElementById('gameBoard')
 // EVENT LISTENERS
 window.addEventListener('load', loadGame)
-// window.addEventListener('load', loadBoard)
 gameBoard.addEventListener('click', function(event) {
   if (event.target.className === 'cell' && !event.target.innerText) {
     handleTurn(event.target)
@@ -47,7 +46,7 @@ function handleTurn(cell) {
 
   if (checkBoard()) {
     loadPlayers()
-
+    gameBoard.addEventListener('click', startNewGame)
     return
   }
 
@@ -70,8 +69,7 @@ function placeToken(cell) {
 
 function switchPlayer() {
   currentGame.changePlayerTurn()
-  gameMessage.innerText = `It's ${currentGame.playerTurn.token} turn!`
-
+  updateGameMessage()
 }
 
 function startNewGame() {
@@ -80,5 +78,11 @@ function startNewGame() {
     cells[i]. innerText = ''
   }
   currentGame.resetBoard()
+  updateGameMessage()
   currentGame.saveToStorage()
+  gameBoard.removeEventListener('click', startNewGame)
+}
+
+function updateGameMessage() {
+  gameMessage.innerText = `It's ${currentGame.playerTurn.token} turn!`
 }
