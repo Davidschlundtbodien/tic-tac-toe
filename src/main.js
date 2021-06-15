@@ -34,7 +34,7 @@ function loadPlayers() {
 }
 
 function loadBoard() {
-  gameMessage.innerText = `It's ${currentGame.playerTurn.token} turn!`
+  gameMessage.innerText = `It's ${currentGame.currentPlayer.token} turn!`
   var cells = document.getElementsByClassName("cell")
   for (var i = 0; i < currentGame.gameBoard.length; i++) {
     cells[i].innerText = currentGame.gameBoard[i]
@@ -56,14 +56,14 @@ function handleTurn(cell) {
 
 function checkBoard() {
   if (currentGame.checkForWin()) {
-    return gameMessage.innerText = `${currentGame.playerTurn.token} has won!`
+    return gameMessage.innerText = `${currentGame.currentPlayer.token} has won!`
   } else if (currentGame.checkForDraw()) {
     return gameMessage.innerText = "DRAW!"
   }
 }
 
 function placeToken(cell) {
-  cell.innerText = currentGame.playerTurn.token
+  cell.innerText = currentGame.currentPlayer.token
   currentGame.updateBoard(cell.id)
 }
 
@@ -84,5 +84,5 @@ function startNewGame() {
 }
 
 function updateGameMessage() {
-  gameMessage.innerText = `It's ${currentGame.playerTurn.token} turn!`
+  gameMessage.innerText = `It's ${currentGame.currentPlayer.token} turn!`
 }
