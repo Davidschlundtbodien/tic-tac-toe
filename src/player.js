@@ -4,7 +4,8 @@ class Player {
     this.token = playerInfo.token;
     this.wins = playerInfo.wins || 0;
   }
-
+  
+  //Local Storage Methods
   saveWinsToStorage() {
     var payload = JSON.stringify(this.wins)
     localStorage.setItem(`${this.id}`, payload)
