@@ -1,10 +1,12 @@
+//Global Variable for game instance
 var currentGame = new Game()
 
-// SELECTORS
+// QUERY SELECTORS
 var playerOne = document.getElementById('playerOne')
 var playerTwo = document.getElementById('playerTwo')
 var gameMessage = document.getElementById('gameMessage')
 var gameBoard = document.getElementById('gameBoard')
+
 // EVENT LISTENERS
 window.addEventListener('load', loadGame)
 gameBoard.addEventListener('click', function(event) {
@@ -22,6 +24,56 @@ function loadGame() {
   loadBoard()
 }
 
+function handleTurn(cell) {
+  placeToken(cell)
+
+  if (checkBoard()) {
+    loadPlayers()
+    gameBoard.addEventListener('click', startNewGame)
+    return
+  }
+
+  switchPlayer()
+  currentGame.saveToStorage()
+}
+
+//HELPER FUCNTIONS
+//Check for win or draw
+function checkBoard() {
+  if (currentGame.checkForWin()) {
+    return gameMessage.innerText = `${currentGame.currentPlayer.token} has won!`
+  } else if (currentGame.checkForDraw()) {
+    return gameMessage.innerText = "DRAW!"
+  }
+}
+
+function startNewGame() {
+  var cells = document.getElementsByClassName("cell")
+  for (var i = 0; i < cells.length; i++) {
+    cells[i]. innerText = ''
+  }
+  currentGame.resetBoard()
+  updateGameMessage()
+  currentGame.saveToStorage()
+  gameBoard.removeEventListener('click', startNewGame)
+}
+
+//Game flow
+function placeToken(cell) {
+  cell.innerText = currentGame.currentPlayer.token
+  currentGame.updateBoard(cell.id)
+}
+
+function switchPlayer() {
+  currentGame.changePlayerTurn()
+  updateGameMessage()
+}
+
+function updateGameMessage() {
+  gameMessage.innerText = `It's ${currentGame.currentPlayer.token} turn!`
+}
+
+//Data updates and loading
 function loadPlayers() {
   playerOne.innerHTML = `
   <h1>${currentGame.player1.token}</h1>
@@ -39,50 +91,4 @@ function loadBoard() {
   for (var i = 0; i < currentGame.gameBoard.length; i++) {
     cells[i].innerText = currentGame.gameBoard[i]
   }
-}
-
-function handleTurn(cell) {
-  placeToken(cell)
-
-  if (checkBoard()) {
-    loadPlayers()
-    gameBoard.addEventListener('click', startNewGame)
-    return
-  }
-
-  switchPlayer()
-  currentGame.saveToStorage()
-}
-
-function checkBoard() {
-  if (currentGame.checkForWin()) {
-    return gameMessage.innerText = `${currentGame.currentPlayer.token} has won!`
-  } else if (currentGame.checkForDraw()) {
-    return gameMessage.innerText = "DRAW!"
-  }
-}
-
-function placeToken(cell) {
-  cell.innerText = currentGame.currentPlayer.token
-  currentGame.updateBoard(cell.id)
-}
-
-function switchPlayer() {
-  currentGame.changePlayerTurn()
-  updateGameMessage()
-}
-
-function startNewGame() {
-  var cells = document.getElementsByClassName("cell")
-  for (var i = 0; i < cells.length; i++) {
-    cells[i]. innerText = ''
-  }
-  currentGame.resetBoard()
-  updateGameMessage()
-  currentGame.saveToStorage()
-  gameBoard.removeEventListener('click', startNewGame)
-}
-
-function updateGameMessage() {
-  gameMessage.innerText = `It's ${currentGame.currentPlayer.token} turn!`
 }
