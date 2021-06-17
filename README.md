@@ -1,5 +1,5 @@
 # Tic-Tac-Toe
-## [Coming soon]()
+## [Check it Out](https://davidschlundtbodien.github.io/tic-tac-toe/)
 
 ### Summary
   Classic Tic-tac-toe with a beer vs wine theme. Application keeps track of wins and game progression through utilization of local storage.
